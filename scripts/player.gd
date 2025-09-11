@@ -25,7 +25,8 @@ func _physics_process(_delta):
 	# TODO: Get vertical input (up/down keys)  
 	# Same idea, but for up and down movement
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	
+	velocity.x = xDirection * xSpeed
+	velocity.y = yDirection * ySpeed
 
 	# TODO: Calculate X movement by multiplying direction × speed
 	# This gives us the actual pixels to move this frame
