@@ -39,7 +39,7 @@ An if statement asks a question and does something based on the answer:
 
 ```gdscript
 if xDirection > 0:
-    print("Player is moving right!")
+	print("Player is moving right!")
 ```
 
 This reads as: "IF xDirection is greater than 0, THEN print that message."
@@ -105,8 +105,8 @@ We'll create a helper function to set animations. Add this function to your scri
 
 ```gdscript
 func update_animation():
-    # TODO: Set the animation based on the facing direction
-    # Use: _animation_player.play("idle_" + facing)
+	# TODO: Set the animation based on the facing direction
+	# Use: _animation_player.play("idle_" + facing)
 	# This combines "idle_" with whatever direction we're facing
 ```
 

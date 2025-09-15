@@ -52,8 +52,8 @@ We can create functions to modify player health:
 
 ```gdscript
 func change_health(amount):
-    # Change health by the amount (positive to heal, negative to damage)
-    # Print the new health value
+	# Change health by the amount (positive to heal, negative to damage)
+	# Print the new health value
 ```
 
 ### Why Use Functions?
@@ -102,7 +102,7 @@ The spike script (`spike.gd`) already has the collision detection set up:
 extends Area2D
 
 func _on_body_entered(body):
-    pass
+	pass
 ```
 
 Notice it extends Area2D (just like coins) and has the same `_on_body_entered` function.

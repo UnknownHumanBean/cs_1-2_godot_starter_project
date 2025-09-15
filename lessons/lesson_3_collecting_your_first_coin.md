@@ -21,7 +21,7 @@ Open your `scripts/coins.gd` file:
 extends Node
 
 func _on_body_entered(body):
-    pass
+	pass
 ```
 
 This is a special function that Godot calls automatically when something touches the coin's area. Right now it does nothing (`pass`).
@@ -42,9 +42,9 @@ Think about what we want:
 ### How Area Detection Works
 ```gdscript
 func _on_body_entered(body):
-    # 'body' is whatever object entered our area
-    # We need to check if it's the player
-    # Then do something (like disappear)
+	# 'body' is whatever object entered our area
+	# We need to check if it's the player
+	# Then do something (like disappear)
 ```
 
 ### The queue_free() Function
@@ -57,7 +57,7 @@ func _on_body_entered(body):
 We can check if the touching object is our player:
 ```gdscript
 if body.name == "Player":
-    # This is definitely our player!
+	# This is definitely our player!
 ```
 
 ## Part 3: Building Coin Collection
@@ -141,8 +141,8 @@ Add these print statements to understand what's happening:
 
 ```gdscript
 func _on_body_entered(body):
-    print("Something touched the coin: ", body.name)
-    # Your collection code here
+	print("Something touched the coin: ", body.name)
+	# Your collection code here
 ```
 
 This helps you see:

@@ -2,13 +2,14 @@ extends Node
 
 
 func _on_body_entered(body):
-	pass
-	# TODO: Check if the object that touched the coin is the player
 	
+	# TODO: Check if the object that touched the coin is the player
+	if body.name == "player":
+		print("Coin collected!")
+		free()
 	
 	
 	# TODO: Print a message when the coin is collected
-	
 	
 	
 	# TODO: Remove the coin from the game

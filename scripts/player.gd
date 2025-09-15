@@ -46,10 +46,21 @@ func _physics_process(_delta):
 	# Use if statements to check xDirection and yDirection
 	# Set facing to "right", "left", "down", or "up"
 	# Only update facing when actually moving (direction != 0)
-	
-	
+	if xDirection >0:
+		facing="right"
+	elif xDirection <0:
+		facing="left"
+	elif yDirection >0:
+		facing="down"
+	elif yDirection <0:
+		facing="back"
 	# TODO: Update animation based on facing direction
-	# Call your update_animation() function here
+	# Call your update_animation() function here  
+	update_animation()
+	if facing=="right": _animation_player.play ("idle_right")
+	elif facing=="left": _animation_player.play ("idle_left")
+	elif facing=="down": _animation_player.play ("idle_down")
+	elif facing=="back": _animation_player.play ("idle_back")
 	
 	# TODO: Actually apply the movement
 	# This is a special Godot function that makes the movement happen
