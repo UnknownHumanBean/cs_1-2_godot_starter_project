@@ -6,7 +6,9 @@ var xDirection = 0
 var facing = "down"
 var ySpeed = 300.0
 var yDirection = 0
-
+var coins = 0
+var health = 100
+var max_health = 100                                                         
 # TODO: Add health system variables
 # var health = ?
 # var maxHealth = ?
@@ -53,14 +55,11 @@ func _physics_process(_delta):
 	elif yDirection >0:
 		facing="down"
 	elif yDirection <0:
-		facing="back"
+		facing="up"
 	# TODO: Update animation based on facing direction
 	# Call your update_animation() function here  
 	update_animation()
-	if facing=="right": _animation_player.play ("idle_right")
-	elif facing=="left": _animation_player.play ("idle_left")
-	elif facing=="down": _animation_player.play ("idle_down")
-	elif facing=="back": _animation_player.play ("idle_back")
+	
 	
 	# TODO: Actually apply the movement
 	# This is a special Godot function that makes the movement happen
@@ -68,6 +67,10 @@ func _physics_process(_delta):
 
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
+	if xDirection == 0 and yDirection == 0:
+		_animation_player.play("idle_" + facing)
+	else:
+		_animation_player.play("walk_" +facing)
 	# TODO: Set the animation based on the facing direction
 	# Use: _animation_player.play("idle_" + facing)
 	# This combines "idle_" with whatever direction we're facing
@@ -76,6 +79,11 @@ func update_animation():
 
 # TODO: Create health change function for interactions
 func change_health(amount):
+	health += amount
+	if health<1:
+		queue_free()
+	if health>max_health:
+		health=max_health
 	# TODO: Add amount to health (positive = heal, negative = damage)
 	# TODO: Make sure health stays between 0 and maxHealth
 	# TODO: Print the new health value
@@ -103,5 +111,8 @@ func shoot():
 	
 	# TODO: Print shooting confirmation
 	# print("Shot projectile facing: ", facing)
-	
 	pass
+	
+func change_coins(amount:int):
+	coins+=amount
+	print ("You have " + str(coins), " coins.")
