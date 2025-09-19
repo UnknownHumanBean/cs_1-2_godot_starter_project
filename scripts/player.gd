@@ -1,14 +1,14 @@
 extends CharacterBody2D
 @onready var _animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
-var xSpeed = 300.0
+var xSpeed = 250.0
 var xDirection = 0
 var facing = "down"
-var ySpeed = 300.0
+var ySpeed = 250.0
 var yDirection = 0
 var coins = 0
 var health = 100
-var max_health = 100                                                         
+var max_health = 100                                                     
 # TODO: Add health system variables
 # var health = ?
 # var maxHealth = ?
@@ -34,7 +34,9 @@ func _physics_process(_delta):
 	# This gives us the actual pixels to move this frame
 	# If direction is 1 and speed is 300, we get 300 pixels right
 	# If direction is -1 and speed is 300, we get -300 pixels (left)
-	
+
+
+		
 	
 	# TODO: Calculate Y movement the same way
 	
@@ -58,12 +60,23 @@ func _physics_process(_delta):
 		facing="up"
 	# TODO: Update animation based on facing direction
 	# Call your update_animation() function here  
+
+#func players_pressed(_KEY_F):
+	# if input.is_action_just_pressed ("ui_accept"):
+		#shoot()
+	
+
 	update_animation()
+	
+	
+	
+	move_and_slide()
+	
 	
 	
 	# TODO: Actually apply the movement
 	# This is a special Godot function that makes the movement happen
-	move_and_slide()
+	
 
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
@@ -96,6 +109,9 @@ func shoot():
 	# TODO: Create a new projectile instance
 	# Look at the documentation examples in the lesson
 	
+	#Put back in later!!! vvv
+	# var projectile_scene = preload("res://scenes/coin.tscn")
+	# var _new_projectile = projectile_scene.instantiate()
 	
 	# TODO: Set projectile position to player position
 	# Look at the "Setting Object Position" example

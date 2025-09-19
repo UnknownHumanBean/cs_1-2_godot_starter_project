@@ -10849,33 +10849,33 @@ position = Vector2(-240, 527)
 position = Vector2(-192, 527)
 
 [node name="Lever4" parent="Items" instance=ExtResource("8_17j5i")]
-position = Vector2(-538, 125)
+position = Vector2(348, 428)
 
 [node name="Coins" type="Node" parent="Items"]
 
 [node name="Coin" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(95, -31)
+position = Vector2(601, 259)
 
 [node name="Coin2" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(419, 221)
+position = Vector2(408, 229)
 
 [node name="Coin3" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(395, 244)
+position = Vector2(-199, 444)
 
 [node name="Coin4" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(416, 269)
+position = Vector2(410, 262)
 
 [node name="Coin5" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(-173, 178)
+position = Vector2(349, -201)
 
 [node name="Coin6" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(-197, 179)
+position = Vector2(316, -196)
 
 [node name="Coin7" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(-218, 179)
+position = Vector2(-206, 172)
 
 [node name="Coin8" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(-195, 157)
+position = Vector2(-179, 172)
 
 [node name="Coin9" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
 position = Vector2(-543, 340)
@@ -10887,13 +10887,13 @@ position = Vector2(-568, 354)
 position = Vector2(-565, 332)
 
 [node name="Coin12" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(-545, 361)
+position = Vector2(-364, -341)
 
 [node name="Coin13" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
 position = Vector2(271, 544)
 
 [node name="Coin14" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
-position = Vector2(330, 541)
+position = Vector2(222, 201)
 
 [node name="Coin15" parent="Items/Coins" instance=ExtResource("9_wjn7r")]
 position = Vector2(385, 542)

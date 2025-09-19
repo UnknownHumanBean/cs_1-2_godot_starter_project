@@ -75,7 +75,7 @@ In your player script, you need to detect when the spacebar is pressed.
 **Input detection hint:**
 ```gdscript
 if Input.is_action_just_pressed("ui_accept"):
-    # Spacebar was just pressed!
+	# Spacebar was just pressed!
 ```
 
 `is_action_just_pressed()` only triggers once per press (unlike `get_axis()` which is continuous).
