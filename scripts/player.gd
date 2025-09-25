@@ -8,7 +8,7 @@ var ySpeed = 250.0
 var yDirection = 0
 var coins = 0
 var health = 100
-var max_health = 100                                                     
+var max_health = 100
 # TODO: Add health system variables
 # var health = ?
 # var maxHealth = ?
@@ -60,7 +60,8 @@ func _physics_process(_delta):
 		facing="up"
 	# TODO: Update animation based on facing direction
 	# Call your update_animation() function here  
-
+	if Input.is_action_just_pressed("ui_select"):
+		shoot()
 #func players_pressed(_KEY_F):
 	# if input.is_action_just_pressed ("ui_accept"):
 		#shoot()
