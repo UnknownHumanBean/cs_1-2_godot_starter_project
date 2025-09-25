@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Area2D
 @onready var _animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
 var xSpeed = 250.0
@@ -9,6 +9,7 @@ var yDirection = 0
 var coins = 0
 var health = 100
 var max_health = 100
+const projectile_scene = preload("res://scenes/projectile.tscn")
 # TODO: Add health system variables
 # var health = ?
 # var maxHealth = ?
@@ -36,7 +37,7 @@ func _physics_process(_delta):
 	# If direction is -1 and speed is 300, we get -300 pixels (left)
 
 
-		
+	
 	
 	# TODO: Calculate Y movement the same way
 	
@@ -109,10 +110,13 @@ func change_health(amount):
 func shoot():
 	# TODO: Create a new projectile instance
 	# Look at the documentation examples in the lesson
-	
+	var new_instance = projectile_scene.instantiate()
+	new_instance.set_direction(facing)
+	get_parent().add_child(new_instance)
+	new_instance.global_position = position - Vector2(0,25)
 	#Put back in later!!! vvv
-	# var projectile_scene = preload("res://scenes/coin.tscn")
-	# var _new_projectile = projectile_scene.instantiate()
+	#var projectile_scene = preload("res://scenes/coin.tscn")
+	#var _new_projectile = projectile_scene.instantiate()
 	
 	# TODO: Set projectile position to player position
 	# Look at the "Setting Object Position" example
