@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 @onready var _animation_player: AnimatedSprite2D = $AnimatedSprite2D
 
 var xSpeed = 250.0
@@ -10,6 +10,8 @@ var coins = 0
 var health = 100
 var max_health = 100
 const projectile_scene = preload("res://scenes/projectile.tscn")
+var velocityx = xDirection * xSpeed
+var velocityy = yDirection * ySpeed
 # TODO: Add health system variables
 # var health = ?
 # var maxHealth = ?
@@ -28,14 +30,14 @@ func _physics_process(_delta):
 	# TODO: Get vertical input (up/down keys)  
 	# Same idea, but for up and down movement
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	velocity.x = xDirection * xSpeed
-	velocity.y = yDirection * ySpeed
-
+	velocityx = xDirection * xSpeed
+	velocityy = yDirection * ySpeed
+	
 	# TODO: Calculate X movement by multiplying direction × speed
 	# This gives us the actual pixels to move this frame
 	# If direction is 1 and speed is 300, we get 300 pixels right
 	# If direction is -1 and speed is 300, we get -300 pixels (left)
-
+	
 
 	
 	
@@ -60,7 +62,8 @@ func _physics_process(_delta):
 	elif yDirection <0:
 		facing="up"
 	# TODO: Update animation based on facing direction
-	# Call your update_animation() function here  
+	# Call your update_animation() function here 
+func players_pressed(_KEY_F):
 	if Input.is_action_just_pressed("ui_select"):
 		shoot()
 #func players_pressed(_KEY_F):
@@ -74,8 +77,8 @@ func _physics_process(_delta):
 	
 	move_and_slide()
 	
-	
-	
+func move_and_slide() : 
+	print("...")
 	# TODO: Actually apply the movement
 	# This is a special Godot function that makes the movement happen
 	
@@ -114,9 +117,7 @@ func shoot():
 	new_instance.set_direction(facing)
 	get_parent().add_child(new_instance)
 	new_instance.global_position = position - Vector2(0,25)
-	#Put back in later!!! vvv
-	#var projectile_scene = preload("res://scenes/coin.tscn")
-	#var _new_projectile = projectile_scene.instantiate()
+	
 	
 	# TODO: Set projectile position to player position
 	# Look at the "Setting Object Position" example

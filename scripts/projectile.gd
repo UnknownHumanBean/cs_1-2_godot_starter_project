@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Area2D
 
 # TODO: Add speed variable for how fast projectile moves
 # var speed = ?
