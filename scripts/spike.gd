@@ -6,6 +6,6 @@ func _ready() -> void:
 
 func _on_body_entered(body):
 	if body.name == "Player":
-		body.change_health(-2)
+		body.change_health(-10)
 	pass
 	

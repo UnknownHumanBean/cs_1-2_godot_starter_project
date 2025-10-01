@@ -11,7 +11,7 @@ var coins = 0
 @export var offset : Vector2 = Vector2(0, -25)
 
 # TODO: Add health system variables
-var maxHealth = 10
+var maxHealth = 100
 var health = maxHealth
 
 func _ready() -> void:
