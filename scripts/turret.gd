@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
 var projectile_original = preload("res://scenes/enemy_projectile.tscn")
-var speed = 300
+var speed = 400
 
-func _ready(body):
+func _ready():
 	
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -29,7 +29,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	# TODO: Add projectile to the game world
 		get_tree().get_root().add_child(projectile_clone)
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_area_2d_body_exited(_body: Node2D) -> void:
 	pass # Replace with function body.
 
 	
