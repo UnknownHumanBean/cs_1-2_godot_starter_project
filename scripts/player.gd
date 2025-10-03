@@ -85,6 +85,7 @@ func change_coins(_amount:int):
 
 func die():
 	print("you died")
+	queue_free()
 	
 # TODO: Create shooting function
 func shoot():
