@@ -10,9 +10,9 @@ var player
 func _process(delta):
 	if in_range:
 		timer -= delta
-	if timer < 0:
-		shoot(player)
-		timer = start_time
+		if timer < 0:
+			shoot()
+			timer = start_time
 
 func _ready():
 	
@@ -21,29 +21,21 @@ func _ready():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player = body
-	 # Replace with function body.
-# TODO: Create a new projectile instance
-		var projectile_clone = projectile_original.instantiate()
-	
-	# TODO: Set projectile position to player position
-		projectile_clone.global_position = position
-	
-	# TODO: Set projectile direction using facing variable
-		projectile_clone.set_direction(body.position)
-	# TODO: Add projectile to the game world
-		get_tree().get_root().add_child(projectile_clone)
+		in_range = true
 
-func _on_area_2d_body_exited(_body: Node2D) -> void:
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		player = body
+		in_range = false
 	pass # Replace with function body.
 
-func shoot(target):
-	if target.name == "Player":
-		
-		var projectile_clone = projectile_original.instantiate()
+func shoot():
 	
-		projectile_clone.global_position = position
-	
-		projectile_clone.set_direction(target.position)
-	
-		get_tree().get_root().add_child(projectile_clone)
-	
+	var projectile_clone = projectile_original.instantiate()
+
+	projectile_clone.global_position = position
+
+	projectile_clone.set_direction(player.position)
+
+	get_tree().get_root().add_child(projectile_clone)

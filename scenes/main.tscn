@@ -10806,6 +10806,7 @@ y_sort_enabled = true
 position = Vector2(4, -93)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(3, 6)
 zoom = Vector2(2, 2)
 
 [node name="Merchant" type="CharacterBody2D" parent="."]
@@ -10943,19 +10944,19 @@ position = Vector2(305, 400)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="MinoTauret" parent="Enemies" instance=ExtResource("16_oljba")]
-position = Vector2(-127, -28)
+position = Vector2(-193, 32)
 
 [node name="MinoTauret2" parent="Enemies" instance=ExtResource("16_oljba")]
-position = Vector2(-356, -382)
+position = Vector2(-359, -394)
 
 [node name="MinoTauret3" parent="Enemies" instance=ExtResource("16_oljba")]
-position = Vector2(714, 3)
+position = Vector2(614, 45)
 
 [node name="MinoTauret4" parent="Enemies" instance=ExtResource("16_oljba")]
-position = Vector2(-195, 44)
+position = Vector2(371, -248)
 
 [node name="MinoTauret5" parent="Enemies" instance=ExtResource("16_oljba")]
-position = Vector2(-639, 465)
+position = Vector2(-455, 465)
 
 [node name="MeleeMinotaurs" type="Node" parent="Enemies"]
 
