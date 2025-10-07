@@ -8,7 +8,10 @@ var facing = "down"
 var ySpeed = 300.0
 var yDirection = 0
 var coins = 0
+var is_atking = false
+var atk_timer = 0.6
 @export var offset : Vector2 = Vector2(0, -25)
+@onready var melee_box : CollisionShape2D = $Area2D/CollisionShape2D2
 
 # TODO: Add health system variables
 var maxHealth = 100
@@ -38,12 +41,16 @@ func _physics_process(_delta):
 	# TODO: Update facing direction based on movement
 	if xDirection > 0:
 		facing = "right"
+		melee_box.position = Vector2 (30,0)
 	elif xDirection < 0:
 		facing = "left"
+		
 	elif yDirection < 0:
 		facing = "up"
+		
 	elif yDirection > 0:
 		facing = "down"
+		
 	
 	if Input.is_action_just_pressed("ui_select"):
 		shoot()
@@ -55,6 +62,15 @@ func _physics_process(_delta):
 	# This is a special Godot function that makes the movement happen
 	move_and_slide()
 
+	if Input.is_action_just_pressed ("ui_e"):
+		is_atking = true
+	
+	if is_atking:
+		atk_timer -= _delta
+		if atk_timer < 0:
+			is_atking = false
+			atk_timer = 0.6
+		
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
 	# TODO: Set the animation based on the facing direction
@@ -84,7 +100,7 @@ func change_coins(_amount:int):
 	print("you have " +str(coins) +" coins")
 
 func die():
-	print("you died")
+	print("WASTED!")
 	queue_free()
 	
 # TODO: Create shooting function
@@ -102,3 +118,7 @@ func shoot():
 	get_tree().get_root().add_child(projectile_clone)
 
 	pass
+		
+func on_body_entered(body):
+	if body.is_in_group("enemies") and is_atking: 
+		body.take_damage(20)

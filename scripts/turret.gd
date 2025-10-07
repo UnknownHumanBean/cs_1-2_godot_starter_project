@@ -6,6 +6,8 @@ var start_time = 1.5
 var timer = start_time
 var in_range = false
 var player
+var health
+var maxHealth = 100
 
 func _process(delta):
 	if in_range:
@@ -15,7 +17,7 @@ func _process(delta):
 			timer = start_time
 
 func _ready():
-	
+	health = maxHealth
 	pass
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -39,3 +41,21 @@ func shoot():
 	projectile_clone.set_direction(player.position)
 
 	get_tree().get_root().add_child(projectile_clone)
+	
+func change_health(_amount:int):
+		health += _amount
+		if health < 1:
+			die()
+		if health > maxHealth:
+			health = maxHealth
+		print("Enemy Health: ", health)
+		
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		die()
+	print("Enemy Health: ", health)
+
+func die():
+	print("Enemy defeated!")
+	queue_free()
