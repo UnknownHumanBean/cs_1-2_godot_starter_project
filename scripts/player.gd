@@ -12,12 +12,13 @@ var is_atking = false
 var atk_timer = 0.6
 @export var offset : Vector2 = Vector2(0, -25)
 @onready var melee_box : CollisionShape2D = $Area2D/CollisionShape2D2
-
-# TODO: Add health system variables
+var in_range = false
 var maxHealth = 100
 var health = maxHealth
-
+var atk_cooldown = 0.6
+var _body
 func _ready() -> void:
+	
 	pass
 
 func _physics_process(_delta):
@@ -41,16 +42,16 @@ func _physics_process(_delta):
 	# TODO: Update facing direction based on movement
 	if xDirection > 0:
 		facing = "right"
-		melee_box.position = Vector2 (30,0)
+		melee_box.position = Vector2 (25,-20)
 	elif xDirection < 0:
 		facing = "left"
-		
+		melee_box.position = Vector2 (-25,-20)
 	elif yDirection < 0:
 		facing = "up"
-		
+		melee_box.position = Vector2 (0,-50)
 	elif yDirection > 0:
 		facing = "down"
-		
+		melee_box.position = Vector2 (0,17)
 	
 	if Input.is_action_just_pressed("ui_select"):
 		shoot()
@@ -62,9 +63,11 @@ func _physics_process(_delta):
 	# This is a special Godot function that makes the movement happen
 	move_and_slide()
 
-	if Input.is_action_just_pressed ("ui_e"):
+	if Input.is_action_just_pressed("ui_text_delete"):
 		is_atking = true
-	
+		atk_timer = atk_cooldown
+		attack(_body)
+		
 	if is_atking:
 		atk_timer -= _delta
 		if atk_timer < 0:
@@ -120,5 +123,9 @@ func shoot():
 	pass
 		
 func on_body_entered(body):
-	if body.is_in_group("enemies") and is_atking: 
-		body.take_damage(20)
+	if body.is_in_group("enemies"): 
+		var _in_range = true
+		
+func attack(body):
+	if in_range == true and body.is_in_group("enemies"):
+		print ("hit")

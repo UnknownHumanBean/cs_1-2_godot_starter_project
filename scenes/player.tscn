@@ -802,6 +802,7 @@ animations = [{
 radius = 12.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(19, 28)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_hf8rj")
@@ -819,4 +820,5 @@ shape = SubResource("CircleShape2D_ptgn0")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_qhqgy")
