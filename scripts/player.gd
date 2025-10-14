@@ -17,29 +17,33 @@ var maxHealth = 100
 var health = maxHealth
 var atk_cooldown = 0.6
 var _body
+var mana_gain_amount = 1
+var mana_amount = 0
+var max_mana = 100
+var max_energy = 100
+var energy_gain = 1
+var energy_amount = 0
+var mana_tax = 1
+var speed_mult = 1
+var regeneration = 5
+var nat_regeneration = .01
+var saturation = 0
+var max_saturation = 100
+var sat_use_speed = 1
+var nat_regen_speed = 1
+
 func _ready() -> void:
-	
+	energy_amount = max_energy
+	saturation = max_saturation
 	pass
 
 func _physics_process(_delta):
-	# TODO: Get horizontal input (left/right keys)
-	# Input.get_axis checks two keys and gives us a number:
-	# - When LEFT is pressed: returns -1.0
-	# - When RIGHT is pressed: returns 1.0  
-	# - When NOTHING is pressed: returns 0.0
 	xDirection = Input.get_axis("ui_left", "ui_right")
-	
-	# TODO: Get vertical input (up/down keys)  
-	# Same idea, but for up and down movement
 	yDirection = Input.get_axis("ui_up", "ui_down")
 	
-	# TODO: Set the player's velocity (how fast they're moving)
-	# Godot's CharacterBody2D uses a velocity system
-	#velocity is a vector, define it as a product of speed and direction
-	velocity.x = xDirection * xSpeed
-	velocity.y = yDirection * ySpeed
+	velocity.x = xDirection * xSpeed * speed_mult
+	velocity.y = yDirection * ySpeed * speed_mult
 	
-	# TODO: Update facing direction based on movement
 	if xDirection > 0:
 		facing = "right"
 		melee_box.position = Vector2 (25,-20)
@@ -54,8 +58,14 @@ func _physics_process(_delta):
 		melee_box.position = Vector2 (0,17)
 	
 	if Input.is_action_just_pressed("ui_select"):
-		shoot()
-	
+		if mana_amount >= 10 * mana_tax:
+			shoot()
+			mana_amount -= 10 * mana_tax
+			print ("Mana " + str(mana_amount))
+			
+		elif mana_amount <= 10 * mana_tax:
+			mana_amount += 0 + mana_gain_amount
+			print ("Mana " + str(mana_amount))
 	# call the animation function
 	update_animation()
 	
@@ -84,6 +94,11 @@ func update_animation():
 	elif !velocity.is_zero_approx():
 		#walking animation here
 		_animation_player.play("walk_" + facing)
+		
+	if is_atking:
+		_animation_player.play("attack_"+ facing)
+		
+		
 		pass
 		
 	
@@ -92,7 +107,8 @@ func update_animation():
 # TODO: Create health change function for interactions
 func change_health(_amount:int):
 		health += _amount
-		if health < 1:
+		mana_tax *= 1.1
+		if health <= 0:
 			die()
 		if health > maxHealth:
 			health = maxHealth
@@ -101,9 +117,21 @@ func change_health(_amount:int):
 func change_coins(_amount:int):
 	coins += _amount
 	print("you have " +str(coins) +" coins")
-
+	health = health + regeneration
+	print("Health: ", health)
+	
+	if coins >= 3:
+		coins -= 3
+		speed_mult *= 1.1
+		mana_gain_amount *= 2
+		energy_gain *= 2
+		saturation = saturation + 10
+		print("Saturation: ", saturation)
+		sat_use_speed = sat_use_speed * 2
+		nat_regen_speed = nat_regen_speed * 2
+		
 func die():
-	print("WASTED!")
+	print("WASTED!") 
 	queue_free()
 	
 # TODO: Create shooting function
@@ -129,3 +157,13 @@ func on_body_entered(body):
 func attack(body):
 	if in_range == true and body.is_in_group("enemies"):
 		print ("hit")
+		
+func _process(_delta: float) -> void:
+	if saturation >= 1 and health < 100:
+		saturation -= .01 * sat_use_speed
+		health = health + (nat_regeneration * nat_regen_speed)
+		print("Health: ", health)
+		print("Saturation: ", saturation)
+		
+	if health >= maxHealth:
+		health = maxHealth

@@ -71,7 +71,7 @@ size = Vector2(10, 11)
 [sub_resource type="CircleShape2D" id="CircleShape2D_fgrfj"]
 radius = 229.002
 
-[node name="MinoTauret6" type="CharacterBody2D"]
+[node name="MinoTauret6" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_fgrfj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -42,7 +42,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy_projectile" type="Area2D"]
+[node name="Enemy_projectile" type="Area2D" groups=["enemies"]]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_e8ik0")
 
