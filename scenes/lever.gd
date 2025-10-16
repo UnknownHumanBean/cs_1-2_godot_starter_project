@@ -6,7 +6,7 @@ var in_range = false
 @onready var _animation_lever: AnimatedSprite2D = $AnimatedSprite2D
 
 func on_body_entered(body):
-	if body == player:
+	if body == "Player":
 		in_range = true
 		
 func _process(_float) -> void:

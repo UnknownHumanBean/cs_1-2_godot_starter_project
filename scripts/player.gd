@@ -31,6 +31,8 @@ var saturation = 0
 var max_saturation = 100
 var sat_use_speed = 1
 var nat_regen_speed = 1
+var exhaustion = 1
+var moving = false
 
 func _ready() -> void:
 	energy_amount = max_energy
@@ -40,7 +42,7 @@ func _ready() -> void:
 func _physics_process(_delta):
 	xDirection = Input.get_axis("ui_left", "ui_right")
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	
+
 	velocity.x = xDirection * xSpeed * speed_mult
 	velocity.y = yDirection * ySpeed * speed_mult
 	
@@ -166,3 +168,23 @@ func _process(_delta: float) -> void:
 		
 	if saturation >= max_saturation:
 		saturation = max_saturation
+		
+	if Input.get_axis("ui_left", "ui_right") and energy_amount >= 0.01:
+		energy_amount -= 0.5 * exhaustion
+		print("Energy " ,str(energy_amount))
+	elif Input.get_axis("ui_left", "ui_right") and energy_amount <= 0.01:
+		xSpeed = 200
+		ySpeed = 200
+		@warning_ignore("integer_division")
+		energy_amount += energy_gain / exhaustion
+		print("Energy " ,str(energy_amount))
+		
+	if Input.get_axis("ui_up", "ui_down") and energy_amount >= 0.01:
+		energy_amount -= 0.5 * exhaustion
+		print("Energy " ,str(energy_amount))
+	elif Input.get_axis("ui_up", "ui_down") and energy_amount <= 0.01:
+		xSpeed = 200
+		ySpeed = 200
+		@warning_ignore("integer_division")
+		energy_amount += energy_gain / exhaustion
+		print("Energy " ,str(energy_amount))
