@@ -112,13 +112,13 @@ func change_health(_amount:int):
 			die()
 		if health > maxHealth:
 			health = maxHealth
-		print("Health: ", health)
+		
 
 func change_coins(_amount:int):
 	coins += _amount
 	print("you have " +str(coins) +" coins")
 	health = health + regeneration
-	print("Health: ", health)
+	
 	
 	if coins >= 3:
 		coins -= 3
@@ -126,12 +126,10 @@ func change_coins(_amount:int):
 		mana_gain_amount *= 2
 		energy_gain *= 2
 		saturation = saturation + 10
-		print("Saturation: ", saturation)
 		sat_use_speed = sat_use_speed * 2
 		nat_regen_speed = nat_regen_speed * 2
 		
-func die():
-	print("WASTED!") 
+func die(): 
 	queue_free()
 	
 # TODO: Create shooting function
@@ -162,8 +160,9 @@ func _process(_delta: float) -> void:
 	if saturation >= 1 and health < 100:
 		saturation -= .01 * sat_use_speed
 		health = health + (nat_regeneration * nat_regen_speed)
-		print("Health: ", health)
-		print("Saturation: ", saturation)
 		
 	if health >= maxHealth:
 		health = maxHealth
+		
+	if saturation >= max_saturation:
+		saturation = max_saturation
