@@ -172,6 +172,7 @@ func _process(_delta: float) -> void:
 	if Input.get_axis("ui_left", "ui_right") and energy_amount >= 0.01:
 		energy_amount -= 0.5 * exhaustion
 		print("Energy " ,str(energy_amount))
+		moving = true
 	elif Input.get_axis("ui_left", "ui_right") and energy_amount <= 0.01:
 		xSpeed = 200
 		ySpeed = 200
@@ -182,6 +183,7 @@ func _process(_delta: float) -> void:
 	if Input.get_axis("ui_up", "ui_down") and energy_amount >= 0.01:
 		energy_amount -= 0.5 * exhaustion
 		print("Energy " ,str(energy_amount))
+		moving = true
 	elif Input.get_axis("ui_up", "ui_down") and energy_amount <= 0.01:
 		xSpeed = 200
 		ySpeed = 200
