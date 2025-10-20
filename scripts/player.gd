@@ -16,8 +16,8 @@ var in_range = false
 var maxHealth = 100
 var health = maxHealth
 var atk_cooldown = 0.6
-var _body
-var mana_gain_amount = 1
+var body
+var mana_gain_amount = 0.01
 var mana_amount = 0
 var max_mana = 100
 var max_energy = 100
@@ -78,11 +78,11 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_text_delete"):
 		is_atking = true
 		atk_timer = atk_cooldown
-		attack(_body)
+		attack(body)
 		
 	if is_atking:
 		atk_timer -= _delta
-		if atk_timer < 0:
+		if atk_timer <= 0:
 			is_atking = false
 			atk_timer = 0.6
 		
@@ -150,12 +150,15 @@ func shoot():
 
 	pass
 		
+@warning_ignore("shadowed_variable")
 func on_body_entered(body):
 	if body.is_in_group("enemies"): 
 		var _in_range = true
 		
+@warning_ignore("shadowed_variable")
 func attack(body):
-	if in_range == true and body.is_in_group("enemies"):
+	if in_range == true and body.is_in_group("enemies") and energy_amount >= (10 * exhaustion):
+		energy_amount -= 10 * exhaustion
 		print ("hit")
 		
 func _process(_delta: float) -> void:
@@ -169,24 +172,34 @@ func _process(_delta: float) -> void:
 	if saturation >= max_saturation:
 		saturation = max_saturation
 		
+	if energy_amount >= max_energy:
+		energy_amount = max_energy
+		
 	if Input.get_axis("ui_left", "ui_right") and energy_amount >= 0.01:
-		energy_amount -= 0.5 * exhaustion
+		xSpeed = 300 * speed_mult
+		ySpeed = 300 * speed_mult
+		energy_amount -= 0.25 * exhaustion
 		print("Energy " ,str(energy_amount))
 		moving = true
 	elif Input.get_axis("ui_left", "ui_right") and energy_amount <= 0.01:
-		xSpeed = 200
-		ySpeed = 200
-		@warning_ignore("integer_division")
-		energy_amount += energy_gain / exhaustion
+		xSpeed = 200 * speed_mult
+		ySpeed = 200 * speed_mult
+		moving = false
 		print("Energy " ,str(energy_amount))
 		
 	if Input.get_axis("ui_up", "ui_down") and energy_amount >= 0.01:
-		energy_amount -= 0.5 * exhaustion
+		xSpeed = 300 * speed_mult
+		ySpeed = 300 * speed_mult
+		energy_amount -= 0.25 * exhaustion
 		print("Energy " ,str(energy_amount))
 		moving = true
 	elif Input.get_axis("ui_up", "ui_down") and energy_amount <= 0.01:
-		xSpeed = 200
-		ySpeed = 200
+		xSpeed = 200 * speed_mult
+		ySpeed = 200 * speed_mult
+		moving = false
+		print("Energy " ,str(energy_amount))
+		
+	if moving == false:
 		@warning_ignore("integer_division")
 		energy_amount += energy_gain / exhaustion
 		print("Energy " ,str(energy_amount))
