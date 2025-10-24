@@ -56,8 +56,6 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta):
-	while true:
-		print("HI")
 	xDirection = Input.get_axis("Key_A", "Key_D")
 	yDirection = Input.get_axis("Key_W", "Key_S")
 
@@ -206,13 +204,11 @@ func _process(_delta: float) -> void:
 		xSpeed = 300 * speed_mult
 		ySpeed = 300 * speed_mult
 		energy_amount -= 0.25 * exhaustion
-		print("Energy " ,str(energy_amount))
 		moving = true
 	elif Input.get_axis("Key_W", "Key_S") and energy_amount <= 1:
 		xSpeed = 50 * speed_mult
 		ySpeed = 50 * speed_mult
 		moving = false
-		print("Energy " ,str(energy_amount))
 		
 	if moving == false:
 		@warning_ignore("integer_division")
