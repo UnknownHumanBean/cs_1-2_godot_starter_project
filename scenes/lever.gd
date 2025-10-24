@@ -9,7 +9,7 @@ signal toggled(name, state)
 func _ready() -> void:
 	add_to_group("levers")
 	# ensure monitoring is on so Area2D signals work
-	monitoring = true
+	#monitoring = true
 
 func _on_Lever_body_entered(body: Node) -> void:
 	# detect player; you can also check is_in_group("players") if you add the player to that group
@@ -39,9 +39,9 @@ func toggle() -> void:
 	emit_signal("toggled", lever_name, is_on)
 
 	# If you have a global GameManager autoload, call a handler if it exists
-	if Engine.has_singleton("GameManager"):
+	#if Engine.has_singleton("GameManager"):
 		# In Godot autoloads are available as global variables named by the autoload key.
 		# Try calling GameManager.on_lever_toggled if it exists.
-		if GameManager and GameManager.has_method("on_lever_toggled"):
-			GameManager.on_lever_toggled(lever_name, is_on)
+		#if GameManager and GameManager.has_method("on_lever_toggled"):
+			#GameManager.on_lever_toggled(lever_name, is_on)
 			

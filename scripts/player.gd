@@ -39,6 +39,7 @@ var f = rng.randf()
 var f2 = rng.randf_range(2.5, 7.0)
 var attack_damage = 25
 var attack_hit_done = false
+var body
 
 func _ready() -> void:
 	energy_amount = max_energy
@@ -48,15 +49,17 @@ func _ready() -> void:
 		InputMap.add_action("attack")
 	InputMap.action_erase_events("attack")
 	var ev := InputEventKey.new()
-	ev.keycode = KEY_E
+	ev.keycode = KEY_X
 	InputMap.action_add_event("attack", ev)
-	melee_area.monitoring = true
-	melee_area.set_deferred("monitorable", true)
+	#melee_area.monitoring = true
+	#melee_area.set_deferred("monitorable", true)
 	pass
 
 func _physics_process(_delta):
-	xDirection = Input.get_axis("ui_left", "ui_right")
-	yDirection = Input.get_axis("ui_up", "ui_down")
+	while true:
+		print("HI")
+	xDirection = Input.get_axis("Key_A", "Key_D")
+	yDirection = Input.get_axis("Key_W", "Key_S")
 
 	velocity.x = xDirection * xSpeed * speed_mult
 	velocity.y = yDirection * ySpeed * speed_mult
@@ -74,13 +77,13 @@ func _physics_process(_delta):
 		facing = "down"
 		melee_box.position = Vector2 (0,17)
 	
-	if Input.is_action_just_pressed("ui_select"):
+	if Input.is_action_just_pressed("Key_F"):
 		if mana_amount >= 10 * mana_tax:
 			shoot()
 			mana_amount -= 10 * mana_tax
 			print ("Mana " + str(mana_amount))
 			
-		elif mana_amount <= 10 * mana_tax:
+	if Input.is_action_just_pressed("ui_select"):
 			mana_amount += mana_gain_amount
 			print ("Mana " + str(mana_amount))
 	# call the animation function
@@ -90,7 +93,7 @@ func _physics_process(_delta):
 	# This is a special Godot function that makes the movement happen
 	move_and_slide()
 
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("Key_X"):
 		start_attack()
 		
 	if is_atking:
@@ -149,9 +152,8 @@ func start_attack() -> void:
 		attack_hit_done = true
 		
 func do_melee_attack() -> void:
-	# Immediately damage every overlapping enemy (simple instant hit)
-	var bodies = melee_area.get_overlapping_bodies()
-	for body in bodies:
+	#var bodies = melee_area.get_overlapping_bodies()
+	#for body in bodies:
 		if body and body.is_in_group("enemies"):
 			if body.has_method("take_damage"):
 				body.take_damage(attack_damage)
@@ -190,25 +192,23 @@ func _process(_delta: float) -> void:
 	if energy_amount >= max_energy:
 		energy_amount = max_energy
 		
-	if Input.get_axis("ui_left", "ui_right") and energy_amount >= 1:
+	if Input.get_axis("Key_A", "Key_D") and energy_amount >= 1:
 		xSpeed = 300 * speed_mult
 		ySpeed = 300 * speed_mult
 		energy_amount -= 0.25 * exhaustion
-		print("Energy " ,str(energy_amount))
 		moving = true
-	elif Input.get_axis("ui_left", "ui_right") and energy_amount <= 1:
+	elif Input.get_axis("Key_A", "Key_D") and energy_amount <= 1:
 		xSpeed = 50 * speed_mult
 		ySpeed = 50 * speed_mult
 		moving = false
-		print("Energy " ,str(energy_amount))
 		
-	if Input.get_axis("ui_up", "ui_down") and energy_amount >= 1:
+	if Input.get_axis("Key_W", "Key_S") and energy_amount >= 1:
 		xSpeed = 300 * speed_mult
 		ySpeed = 300 * speed_mult
 		energy_amount -= 0.25 * exhaustion
 		print("Energy " ,str(energy_amount))
 		moving = true
-	elif Input.get_axis("ui_up", "ui_down") and energy_amount <= 1:
+	elif Input.get_axis("Key_W", "Key_S") and energy_amount <= 1:
 		xSpeed = 50 * speed_mult
 		ySpeed = 50 * speed_mult
 		moving = false
@@ -217,4 +217,3 @@ func _process(_delta: float) -> void:
 	if moving == false:
 		@warning_ignore("integer_division")
 		energy_amount += energy_gain / exhaustion
-		print("Energy " ,str(energy_amount))
