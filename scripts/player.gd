@@ -45,12 +45,6 @@ func _ready() -> void:
 	energy_amount = max_energy
 	saturation = max_saturation
 	rng.randomize()
-	if not InputMap.has_action("attack"):
-		InputMap.add_action("attack")
-	InputMap.action_erase_events("attack")
-	var ev := InputEventKey.new()
-	ev.keycode = KEY_X
-	InputMap.action_add_event("attack", ev)
 	#melee_area.monitoring = true
 	#melee_area.set_deferred("monitorable", true)
 	pass
@@ -84,11 +78,8 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
 			mana_amount += mana_gain_amount
 			print ("Mana " + str(mana_amount))
-	# call the animation function
+	
 	update_animation()
-	
-	
-	# This is a special Godot function that makes the movement happen
 	move_and_slide()
 
 	if Input.is_action_just_pressed("Key_X"):
@@ -106,10 +97,11 @@ func _physics_process(_delta):
 
 func change_coins(_amount:int):
 	coins += _amount
+	#temporary:
 	print("you have " +str(coins) +" coins")
 	health = health + regeneration
 	
-	
+	#temporary:
 	if coins >= 3:
 		coins -= 3
 		speed_mult *= 1.1
