@@ -40,6 +40,7 @@ var f2 = rng.randf_range(2.5, 7.0)
 var attack_damage = 25
 var attack_hit_done = false
 var body
+var spell_ID = 0
 
 func _ready() -> void:
 	energy_amount = max_energy
@@ -70,10 +71,25 @@ func _physics_process(_delta):
 		melee_box.position = Vector2 (0,17)
 	
 	if Input.is_action_just_pressed("Key_F"):
-		if mana_amount >= 10 * mana_tax:
-			shoot()
-			mana_amount -= 10 * mana_tax
-			print ("Mana " + str(mana_amount))
+		if spell_ID == 0:
+			if mana_amount >= 10 * mana_tax:
+				shoot()
+				mana_amount -= 10 * mana_tax
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 1:
+			if mana_amount >= 25 * mana_tax:
+				shoot_2()
+				mana_amount -= 25 *mana_tax
+		if spell_ID == 10:
+			if mana_amount >= 15 * mana_tax:
+				speed_mult *= 10
+				mana_amount -= 15 * mana_tax
+				mana_tax += 0.1
+		if spell_ID == 9:
+			if mana_amount >= 5 * mana_tax:
+				mana_gain_amount *= 2
+				mana_amount -= 5 * mana_tax
+				mana_tax += 0.5
 			
 	if Input.is_action_just_pressed("ui_select"):
 			mana_amount += mana_gain_amount
@@ -94,21 +110,20 @@ func _physics_process(_delta):
 		update_animation()
 		move_and_slide()
 		
+	if Input.is_action_just_pressed("Key_C"):
+		if spell_ID < 10:
+			spell_ID += 1
+			print("Spell " +str(spell_ID) +" Equiped")
+		elif spell_ID >= 10:
+			spell_ID = 0
+			print("Spell " +str(spell_ID) +" Equiped")
+
 
 func change_coins(_amount:int):
 	coins += _amount
 	#temporary:
 	print("you have " +str(coins) +" coins")
 	health = health + regeneration
-	
-	#temporary:
-	if coins >= 3:
-		coins -= 3
-		speed_mult *= 1.1
-		mana_gain_amount *= 2
-		energy_gain *= 2
-		saturation = saturation + 10
-		sat_use_speed = sat_use_speed * 2
 	
 func shoot():
 	var projectile_clone = projectile_original.instantiate()
@@ -117,6 +132,12 @@ func shoot():
 	get_tree().get_root().add_child(projectile_clone)
 
 	pass
+	
+func shoot_2():
+	var projectile_clone = projectile_original.instantiate()
+	projectile_clone.global_position = position + offset
+	projectile_clone.set_direction(facing)
+	get_tree().get_root().add_child(projectile_clone)
 		
 @warning_ignore("shadowed_variable")
 func on_body_entered(body):

@@ -1,6 +1,7 @@
-[gd_scene load_steps=129 format=3 uid="uid://ddq1bkyn8j1by"]
+[gd_scene load_steps=133 format=3 uid="uid://ddq1bkyn8j1by"]
 
 [ext_resource type="Texture2D" uid="uid://busa5myjbwb4i" path="res://sprites/Download38899.png" id="1_nohjn"]
+[ext_resource type="Script" uid="uid://dxr6504i6bf8f" path="res://scripts/melee_minotaur.gd" id="1_vltjp"]
 [ext_resource type="Texture2D" uid="uid://dqoamfql4kdnq" path="res://sprites/Download19204.png" id="2_7o3s3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dgyv5"]
@@ -1001,7 +1002,17 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xl86w"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_adppo"]
+radius = 240.102
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uk8e4"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yppwt"]
+radius = 148.03
+
 [node name="MeleeMinotaur" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_vltjp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xx5td")
@@ -1011,6 +1022,29 @@ frame = 7
 frame_progress = 0.985295
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 9.5)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_xl86w")
+
+[node name="in_range" type="Area2D" parent="."]
+
+[node name="in_range_collision" type="CollisionShape2D" parent="in_range"]
+shape = SubResource("CircleShape2D_adppo")
+
+[node name="attacking" type="Area2D" parent="."]
+
+[node name="attacking_collision" type="CollisionShape2D" parent="attacking"]
+shape = SubResource("CircleShape2D_uk8e4")
+
+[node name="chasing" type="Area2D" parent="."]
+
+[node name="chasing_collision" type="CollisionShape2D" parent="chasing"]
+shape = SubResource("CircleShape2D_yppwt")
+
+[connection signal="body_entered" from="in_range" to="." method="_on_in_range_body_entered"]
+[connection signal="body_exited" from="in_range" to="." method="_on_in_range_body_exited"]
+[connection signal="body_entered" from="attacking" to="." method="_on_attacking_body_entered"]
+[connection signal="body_exited" from="attacking" to="." method="_on_attacking_body_exited"]
+[connection signal="body_entered" from="chasing" to="." method="_on_chasing_body_entered"]
+[connection signal="body_exited" from="chasing" to="." method="_on_chasing_body_exited"]
