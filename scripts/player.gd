@@ -109,21 +109,11 @@ func change_coins(_amount:int):
 		energy_gain *= 2
 		saturation = saturation + 10
 		sat_use_speed = sat_use_speed * 2
-		nat_regen_speed = nat_regen_speed * 2
-		
 	
-# TODO: Create shooting function
 func shoot():
-	# TODO: Create a new projectile instance
 	var projectile_clone = projectile_original.instantiate()
-	
-	# TODO: Set projectile position to player position
 	projectile_clone.global_position = position + offset
-	
-	# TODO: Set projectile direction using facing variable
 	projectile_clone.set_direction(facing)
-	
-	# TODO: Add projectile to the game world
 	get_tree().get_root().add_child(projectile_clone)
 
 	pass
