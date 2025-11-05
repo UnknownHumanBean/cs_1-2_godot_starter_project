@@ -41,6 +41,8 @@ var attack_damage = 25
 var attack_hit_done = false
 var body
 var spell_ID = 0
+var sprint = 100
+var sprinting = false
 
 func _ready() -> void:
 	energy_amount = max_energy
@@ -80,17 +82,54 @@ func _physics_process(_delta):
 			if mana_amount >= 25 * mana_tax:
 				shoot_2()
 				mana_amount -= 25 *mana_tax
+				print ("Mana " + str(mana_amount))
 		if spell_ID == 10:
 			if mana_amount >= 15 * mana_tax:
-				speed_mult *= 10
+				speed_mult *= 1.05
 				mana_amount -= 15 * mana_tax
-				mana_tax += 0.1
+				mana_tax += 0.25
+				print ("Mana " + str(mana_amount))
 		if spell_ID == 9:
 			if mana_amount >= 5 * mana_tax:
-				mana_gain_amount *= 2
+				mana_gain_amount *= 1.03
 				mana_amount -= 5 * mana_tax
-				mana_tax += 0.5
-			
+				mana_tax += 0.1
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 2:
+			if mana_amount >= 7 * mana_tax:
+				mana_amount -= 7 * mana_tax
+				max_energy += 10
+				max_mana += 10
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 3:
+			if mana_amount >= 0 * mana_tax:
+				mana_amount -= 0 * mana_tax
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 4:
+			if mana_amount >= 0 * mana_tax:
+				mana_amount -= 0 * mana_tax
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 5:
+			if mana_amount >= 50 * mana_tax:
+				mana_amount -= 50 * mana_tax
+				maxHealth *= mana_amount/mana_tax
+				health = maxHealth
+				
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 6:
+			if mana_amount >= 0 * mana_tax:
+				mana_amount -= 0 * mana_tax
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 7:
+			if mana_amount >= 0 * mana_tax:
+				mana_amount -= 0 * mana_tax
+				print ("Mana " + str(mana_amount))
+		if spell_ID == 8:
+			if mana_amount >= 100:
+				mana_amount -= 100
+				mana_tax -= speed_mult/saturation
+				print ("Mana " + str(mana_amount))
+
 	if Input.is_action_just_pressed("ui_select"):
 			mana_amount += mana_gain_amount
 			print ("Mana " + str(mana_amount))
@@ -190,29 +229,31 @@ func _process(_delta: float) -> void:
 	if saturation >= max_saturation:
 		saturation = max_saturation
 		
+	if mana_amount >= max_mana:
+		mana_amount = max_energy
+		print ("Mana " + str(mana_amount))
+		
 	if energy_amount >= max_energy:
 		energy_amount = max_energy
 		
+	
+		
 	if Input.get_axis("Key_A", "Key_D") and energy_amount >= 1:
-		xSpeed = 300 * speed_mult
-		ySpeed = 300 * speed_mult
+		sprint = 100
 		energy_amount -= 0.25 * exhaustion
-		moving = true
+		sprinting = true
 	elif Input.get_axis("Key_A", "Key_D") and energy_amount <= 1:
-		xSpeed = 50 * speed_mult
-		ySpeed = 50 * speed_mult
-		moving = false
+		sprint = 0
+		sprinting = false
 		
 	if Input.get_axis("Key_W", "Key_S") and energy_amount >= 1:
-		xSpeed = 300 * speed_mult
-		ySpeed = 300 * speed_mult
+		sprint = 100
 		energy_amount -= 0.25 * exhaustion
-		moving = true
+		sprinting = true
 	elif Input.get_axis("Key_W", "Key_S") and energy_amount <= 1:
-		xSpeed = 50 * speed_mult
-		ySpeed = 50 * speed_mult
-		moving = false
+		sprint = 0
+		sprinting = false
 		
-	if moving == false:
+	if sprinting == false:
 		@warning_ignore("integer_division")
 		energy_amount += energy_gain / exhaustion

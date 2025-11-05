@@ -3,6 +3,9 @@ extends Area2D
 var speed = 400
 var direction : Vector2
 var player
+var projectile_original = preload("res://scenes/enemy_arrow.tscn")
+
+
 func set_direction(target):
 	direction = position.direction_to(target)
 	pass

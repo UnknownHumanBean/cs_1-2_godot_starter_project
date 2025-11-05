@@ -4,7 +4,8 @@ extends CharacterBody2D
 var in_range = false
 var chasing = false
 var attacking = false
-@onready var player: CharacterBody2D = %Player
+@onready var player = %Player
+var projectile_original = preload("res://scenes/enemy_arrow.tscn")
 
 var xSpeed = 200
 var ySpeed = 200
@@ -67,3 +68,13 @@ func update_animation():
 #@warning_ignore("unused_parameter", "shadowed_variable")
 #func set_direction(player: position):
 	#pass
+	
+func shoot():
+	
+	var projectile_clone = projectile_original.instantiate()
+
+	projectile_clone.global_position = position
+
+	projectile_clone.set_direction(player.position)
+
+	get_tree().get_root().add_child(projectile_clone)
