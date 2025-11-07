@@ -100,10 +100,15 @@ func _physics_process(_delta):
 				mana_amount -= 7 * mana_tax
 				max_energy += 10
 				max_mana += 10
+				mana_tax += 0.1
 				print ("Mana " + str(mana_amount))
 		if spell_ID == 3:
-			if mana_amount >= 0 * mana_tax:
-				mana_amount -= 0 * mana_tax
+			if mana_amount >= 1000 * mana_tax:
+				mana_amount -= 1000 * mana_tax
+				max_mana *= 10
+				mana_gain_amount *= 5
+				speed_mult /= 10
+				mana_tax *= 20
 				print ("Mana " + str(mana_amount))
 		if spell_ID == 4:
 			if mana_amount >= 0 * mana_tax:
@@ -112,9 +117,8 @@ func _physics_process(_delta):
 		if spell_ID == 5:
 			if mana_amount >= 50 * mana_tax:
 				mana_amount -= 50 * mana_tax
-				maxHealth *= mana_amount/mana_tax
+				maxHealth *= mana_amount/100
 				health = maxHealth
-				
 				print ("Mana " + str(mana_amount))
 		if spell_ID == 6:
 			if mana_amount >= 0 * mana_tax:
@@ -127,7 +131,7 @@ func _physics_process(_delta):
 		if spell_ID == 8:
 			if mana_amount >= 100:
 				mana_amount -= 100
-				mana_tax -= speed_mult/saturation
+				mana_tax -= 2
 				print ("Mana " + str(mana_amount))
 
 	if Input.is_action_just_pressed("ui_select"):

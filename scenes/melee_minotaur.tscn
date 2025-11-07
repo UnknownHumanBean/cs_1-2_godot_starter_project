@@ -1003,13 +1003,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xl86w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_adppo"]
-radius = 240.102
+radius = 208.38666
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uk8e4"]
 radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yppwt"]
-radius = 148.03
+radius = 264.06818
 
 [node name="MeleeMinotaur" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_vltjp")

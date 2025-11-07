@@ -63,6 +63,9 @@ func _on_chasing_body_exited(body: Node2D) -> void:
 	move_and_slide()
 	
 func update_animation():
+	if in_range:
+		print("In Range!")
+		#if (Some code I dont know how to do, that is supposed to make the turrets fire at me.)
 	pass
 	
 #@warning_ignore("unused_parameter", "shadowed_variable")
