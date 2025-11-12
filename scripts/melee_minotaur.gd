@@ -108,3 +108,7 @@ func process(delta):
 	melee_atk_duration -= delta
 	if melee_atk_duration <= 0:
 		melee = false
+		
+	if abs(position.x - player.position_x) > abs(position.y - player.position_y):
+		if position.x > position.player_y:
+			facing = "right"
