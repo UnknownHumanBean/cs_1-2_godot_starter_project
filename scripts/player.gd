@@ -3,11 +3,13 @@ extends CharacterBody2D
 var projectile_original = preload("res://scenes/projectile.tscn")
 @onready var melee_area: Area2D = $MeleeArea
 
-var xSpeed = 300.0
+var Start_xSpeed = 300.0
 var xDirection = 0
 var facing = "down"
-var ySpeed = 300.0
+var Start_ySpeed = 300.0
 var yDirection = 0
+var xSpeed = 0
+var ySpeed = 0
 var coins = 0
 var is_atking = false
 var atk_timer = 0.0
@@ -240,7 +242,10 @@ func _process(_delta: float) -> void:
 	if energy_amount >= max_energy:
 		energy_amount = max_energy
 		
-	
+	if xSpeed == xSpeed:
+		xSpeed = Start_xSpeed + sprint
+	if ySpeed == ySpeed:
+		ySpeed = Start_ySpeed + sprint
 		
 	if Input.get_axis("Key_A", "Key_D") and energy_amount >= 1:
 		sprint = 100
