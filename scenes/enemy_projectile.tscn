@@ -50,6 +50,7 @@ script = ExtResource("1_e8ik0")
 shape = SubResource("CircleShape2D_ok8aq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+position = Vector2(-9.999999, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_saxa4")
 autoplay = "default"
