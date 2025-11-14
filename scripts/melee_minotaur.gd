@@ -18,7 +18,6 @@ var rangedatk = 0
 var meleeatk = 0
 var melee = false
 var melee_atk_duration = 1
-var body
 var animation = true
 
 
@@ -105,9 +104,10 @@ func shoot():
 	#if melee_atk_duration <= 0:
 		#melee = false
 		
-#func _on_body_entered(_player):
-	#if body.name == "Player":
-		#body.change_health(-1)
+func _on_body_entered(_player):
+	if body.name == "Player":
+		player = body
+		body.change_health(-1)
 		
 	#if abs(position.x - player.position.x) > abs(position.y - player.position.y):
 		#if position.x > position.player.y:
@@ -122,6 +122,7 @@ var start_time = 1.5
 var timer = start_time
 var health
 var maxHealth = 100
+var body
 
 func _process(delta):
 	if in_range:
