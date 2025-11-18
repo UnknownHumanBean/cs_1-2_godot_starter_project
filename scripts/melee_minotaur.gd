@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 var in_range = false
 var chasing = false
 var attacking = false
@@ -19,11 +18,14 @@ var meleeatk = 0
 var melee = false
 var melee_atk_duration = 1
 var animation = true
-
+var start_time = 1.5
+var timer = start_time
+var health
+var maxHealth = 100
+var body
 
 func _ready() -> void:
 	body = player
-	
 	pass
 
 @warning_ignore("unused_parameter", "shadowed_variable")
@@ -31,63 +33,51 @@ func _on_in_range_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player = body
 		in_range = true
-	pass # Replace with function body.
+	pass
 
 @warning_ignore("unused_parameter", "shadowed_variable")
 func _on_in_range_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player = body
 		in_range = false
-	pass # Replace with function body.
+	pass
 
 @warning_ignore("unused_parameter", "shadowed_variable")
 func _on_attacking_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = true
 		in_range = false
-	pass # Replace with function body.
+	pass
 	
 @warning_ignore("unused_parameter", "shadowed_variable")
 func _on_attacking_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = false
-	pass # Replace with function body.
+	pass
 
 @warning_ignore("unused_parameter", "shadowed_variable")
 func _on_chasing_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		#set_direction(player.position)
 		chasing = true
-	pass # Replace with function body.
+	pass
 
 @warning_ignore("unused_parameter", "shadowed_variable")
 func _on_chasing_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		chasing = false
 	pass 
-	
 	update_animation()
 	move_and_slide()
 	
 func update_animation():
 	if in_range:
 		print("In Range!")
-		#if (Something):
-			#the turret fires at me.
-	pass
-	
-#@warning_ignore("unused_parameter", "shadowed_variable")
-#func set_direction(player: position):
-	#pass
 	
 func shoot():
-	
 	var projectile_clone = projectile_original.instantiate()
-
 	projectile_clone.global_position = position
-
 	projectile_clone.set_direction(player.position)
-
 	get_tree().get_root().add_child(projectile_clone)
 
 #@warning_ignore("unused_parameter")
@@ -118,12 +108,6 @@ func _on_body_entered(_player):
 			#facing = "down"
 		#else:
 			#facing = "up"
-var start_time = 1.5
-var timer = start_time
-var health
-var maxHealth = 100
-var body
-
 func _process(delta):
 	if in_range:
 		timer -= delta
@@ -153,4 +137,3 @@ func set_direction(_new_direction: Vector2):
 	if chasing == true:
 		global_position = position
 		%Player.set_direction(player.position)
-	
