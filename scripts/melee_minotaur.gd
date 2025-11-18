@@ -5,7 +5,6 @@ var chasing = false
 var attacking = false
 @onready var player = %Player
 var projectile_original = preload("res://scenes/enemy_arrow.tscn")
-
 var xSpeed = 200
 var ySpeed = 200
 var xDirection
@@ -23,6 +22,7 @@ var timer = start_time
 var health
 var maxHealth = 100
 var body
+var facing
 
 func _ready() -> void:
 	body = player
@@ -80,34 +80,20 @@ func shoot():
 	projectile_clone.set_direction(player.position)
 	get_tree().get_root().add_child(projectile_clone)
 
-#@warning_ignore("unused_parameter")
-#func process(delta):
-	#if attacking:
-		#if meleeatk <= 0:
-			#melee = true
-			#meleeatk = melee_atk_timer
-			#print("Attacked")
-			#play animation
-		#elif meleeatk >= 0.001:
-			#meleeatk -= delta
-	#melee_atk_duration -= delta
-	#if melee_atk_duration <= 0:
-		#melee = false
-		
 func _on_body_entered(_player):
 	if body.name == "Player":
 		player = body
 		body.change_health(-1)
 		
-	#if abs(position.x - player.position.x) > abs(position.y - player.position.y):
-		#if position.x > position.player.y:
-			#facing = "right"
-		#else: 
-			#facing = "left"
-		#if position.y > position.player.y:
-			#facing = "down"
-		#else:
-			#facing = "up"
+	if abs(position.x - player.position.x) > abs(position.y - player.position.y):
+		if position.x > player.position.y:
+			facing = "right"
+		else: 
+			facing = "left"
+		if position.y > player.position.y:
+			facing = "down"
+		else:
+			facing = "up"
 func _process(delta):
 	if in_range:
 		timer -= delta
@@ -125,6 +111,9 @@ func _process(delta):
 		if meleeatk < 0:
 			melee = true
 			meleeatk = melee_atk_timer
+			if body.name == "Player":
+				player = body
+				body.change_health(-5)
 			print ("Attacked")
 		elif meleeatk >0:
 			melee = false
@@ -132,6 +121,13 @@ func _process(delta):
 func _physics_process(_delta: float) -> void:
 	velocity.x = xSpeed
 	velocity.y = ySpeed
+	if chasing == true:
+		global_position = position
+		%Player.set_direction(player.position)
+		if in_range == true:
+			animation.fliph = true
+		elif in_range == false:
+			animation.fliph = false
 	
 func set_direction(_new_direction: Vector2):
 	if chasing == true:
